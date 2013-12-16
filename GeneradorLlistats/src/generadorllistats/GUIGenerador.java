@@ -61,6 +61,7 @@ public class GUIGenerador extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         jLabel2.setText("Selecciona les materies de les quals vols generar el llistat: ");
 
+        jTextPane1.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         jScrollPane1.setViewportView(jTextPane1);
 
         jButton2.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
@@ -71,6 +72,11 @@ public class GUIGenerador extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         jButton3.setText("Sortir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         jButton1.setText("Examinar:");
@@ -103,7 +109,7 @@ public class GUIGenerador extends javax.swing.JFrame {
                                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
+                        .addGap(225, 225, 225)
                         .addComponent(jLabel3)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -124,9 +130,9 @@ public class GUIGenerador extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -144,6 +150,11 @@ public class GUIGenerador extends javax.swing.JFrame {
         //Pintem el path dins el textbox anomenat 'path'"
         path.setText(nomFitxer);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+          System.exit(0);
+          
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
