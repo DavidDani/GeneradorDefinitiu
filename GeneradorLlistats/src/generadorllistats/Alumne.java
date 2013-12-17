@@ -6,18 +6,21 @@
 
 package generadorllistats;
 
+import java.util.List;
+
 /**
  *
  * @author Dani
  */
 public class Alumne {
-    private String codi, nomComplet, curs, assignatures;
+    private String codi, nomComplet, curs;
+    private List<Assignatura> llistAssign;
 
-    public Alumne(String codi, String nomComplet, String curs, String assignatures) {
+    public Alumne(String codi, String nomComplet, String curs, List<Assignatura> llistAssign) {
         this.codi = codi;
         this.nomComplet = nomComplet;
         this.curs = curs;
-        this.assignatures = assignatures;
+        this.llistAssign = llistAssign;
     }
 
     public String getCodi() {
@@ -44,17 +47,18 @@ public class Alumne {
         this.curs = curs;
     }
 
-    public String getAssignatures() {
-        return assignatures;
+    public List<Assignatura> getLlistAssign() {
+        return llistAssign;
     }
 
-    public void setAssignatures(String assignatures) {
-        this.assignatures = assignatures;
+    public void setLlistAssign(List<Assignatura> llistAssign) {
+        this.llistAssign = llistAssign;
     }
 
     @Override
     public String toString() {
-        return "Alumne{" + "codi=" + codi + ", nomComplet=" + nomComplet + ", curs=" + curs + ", assignatures=" + assignatures + '}';
+        return "Alumne{" + "Codi: " + codi + " Nom Complet: " + nomComplet + " Curs: " + curs + " Assignatures: " + llistAssign + "}\n";
     }
+
     
 }
