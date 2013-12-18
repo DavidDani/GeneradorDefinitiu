@@ -25,9 +25,11 @@ public class GeneradorLlistats {
     /**
      * @param args the command line arguments
      */
+    static llistaAlumnes llistaAlumnes = new llistaAlumnes();
     public static void main(String[] args) {
+        
         try {
-            List<Alumne> llistaAlumnes = new ArrayList<>();//llista on desarem tots els objectes Alumne
+            llistaAlumnes.setAlumnes(new ArrayList<Alumne>());//llista on desarem tots els objectes Alumne
             BufferedReader reader = new BufferedReader(new FileReader("matriculats.csv"));//Llegim el fitxer
             String line = "";
             reader.readLine();//Saltem la línia de títols
@@ -44,13 +46,13 @@ public class GeneradorLlistats {
                 a.setNomComplet(dades[4] + "," + dades[5]);//afegim nom complet
                 a.setCurs(dades[10]);//afegim curs
                 a.setLlistAssign(llistaAssignatures);//afegim llista assignatures
-                llistaAlumnes.add(a);//afegim l'alumne amb les seves dades a la llista d'alumnes
+                llistaAlumnes.getAlumnes().add(a);//afegim l'alumne amb les seves dades a la llista d'alumnes
             }
             System.out.println(llistaAlumnes);
             /////
             FileOutputStream file = new FileOutputStream("FitxerAlumnes.xml", false);
 
-            JAXBContext jaxbContext = JAXBContext.newInstance(Alumne.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(llistaAlumnes.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
