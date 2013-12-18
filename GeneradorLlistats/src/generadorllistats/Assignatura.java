@@ -3,24 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package generadorllistats;
+
+import javax.xml.bind.annotation.XmlValue;
 
 /**
  *
  * @author Dani
  */
 public class Assignatura {
-    private String nom;
 
-    public Assignatura(String nom) {
-        this.nom = nom;
-    }
+    private String nom;
 
     public String getNom() {
         return nom;
     }
 
+    @XmlValue
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -29,5 +28,5 @@ public class Assignatura {
     public String toString() {
         return nom;
     }
-    
+
 }

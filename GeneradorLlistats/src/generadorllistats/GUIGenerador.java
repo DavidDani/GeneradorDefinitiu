@@ -3,11 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package generadorllistats;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.List;
 import javax.swing.JFileChooser;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 /**
  *
@@ -152,9 +157,28 @@ public class GUIGenerador extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-          System.exit(0);
-          
+        System.exit(0);
+
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void generarXML(List<Alumne> llistaAlumnes) {
+        try {
+            FileOutputStream file = new FileOutputStream("FitxerAlumnes.xml", false);
+
+            JAXBContext jaxbContext = JAXBContext.newInstance(Alumne.class);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            jaxbMarshaller.marshal(llistaAlumnes, file);// envia a fitxer
+            jaxbMarshaller.marshal(llistaAlumnes, System.out);// envia a consola
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @param args the command line arguments
