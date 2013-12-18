@@ -19,7 +19,7 @@ public class Assignatura {
         return nom;
     }
 
-    @XmlValue
+    
     public void setNom(String nom) {
         this.nom = nom;
     }
