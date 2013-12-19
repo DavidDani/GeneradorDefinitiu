@@ -36,7 +36,8 @@ public class GeneradorLlistats {
             llistaAlumnes.setAlumnes(new ArrayList<Alumne>());//llista on desarem tots els objectes Alumne
             BufferedReader reader = new BufferedReader(new FileReader("matriculats.csv"));//Llegim el fitxer
             String line = "";
-            reader.readLine();//Saltem la línia de títols
+            line = reader.readLine();//Saltem la línia de títols
+            System.out.println(line);
             while ((line = reader.readLine()) != null) {//mentre llegeixis linies del fitxer...
                 String[] dades = line.trim().split(",|\"");//desem els camps de la linia llegida separats per comes o cometes dobles
                 List<Assignatura> llistaAssignatures = new ArrayList<>();//Creem una llista de assignatures
@@ -74,7 +75,7 @@ public class GeneradorLlistats {
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
             jaxbMarshaller.marshal(llistaAlumnes, file);// envia a fitxer
-            jaxbMarshaller.marshal(llistaAlumnes, System.out);// envia a consola
+            //jaxbMarshaller.marshal(llistaAlumnes, System.out);// envia a consola
           /////
         } catch (FileNotFoundException e) {
             e.printStackTrace();
