@@ -178,6 +178,14 @@ public class GUIGenerador extends javax.swing.JFrame{
     private void pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathActionPerformed
            
     }//GEN-LAST:event_pathActionPerformed
+    //Boto per generar el llistat
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+          if (jList1.getSelectedValuesList().isEmpty()){
+              JOptionPane.showMessageDialog(rootPane, "NO HI HA RES SELECCIONAT");
+          }else{
+             JOptionPane.showMessageDialog(rootPane, jList1.getSelectedValuesList());
+          }
+    }//GEN-LAST:event_jButton2ActionPerformed
 //Funcio que permet buscar un fitxer i escriure en el Text del costat
     private void funcioPath(){
    
