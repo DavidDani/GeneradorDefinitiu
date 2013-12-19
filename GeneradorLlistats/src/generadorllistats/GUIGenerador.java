@@ -14,9 +14,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -25,7 +26,7 @@ import javax.xml.bind.Marshaller;
  *
  * @author Roig
  */
-public class GUIGenerador extends javax.swing.JFrame {
+public class GUIGenerador extends javax.swing.JFrame{
 
     /**
      * Creates new form NewJFrame
@@ -71,6 +72,8 @@ public class GUIGenerador extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         jLabel1.setText("Busca el fitxer que contè les dades:");
+
+        path.setEditable(false);
 
         jLabel2.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         jLabel2.setText("Selecciona les materies de les quals vols generar el llistat: ");
@@ -152,24 +155,33 @@ public class GUIGenerador extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//Funcio que permet buscar un fitxer i escriure en el Text del costat
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //Creem un objecte fitxer del tipus FileChooser
-        JFileChooser fitxer = new JFileChooser();
-        fitxer.showOpenDialog(null);
-        //Creem un variable tipus Fitxer per obetnir el fitxer seleccionat anteriorment
-        File f = fitxer.getSelectedFile();
-        //Agafem el path i el guardem en una string
-        String nomFitxer = f.getAbsolutePath();
-        //Pintem el path dins el textbox anomenat 'path'"
-        path.setText(nomFitxer);
+      funcioPath();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         System.exit(0);
 
     }//GEN-LAST:event_jButton3ActionPerformed
-
+//Funcio que permet buscar un fitxer i escriure en el Text del costat
+    private void funcioPath(){
+   
+            //Creem un objecte fitxer del tipus FileChooser
+            JFileChooser fitxer = new JFileChooser();
+            fitxer.showOpenDialog(null);
+            //Creem un variable tipus Fitxer per obetnir el fitxer seleccionat anteriorment
+            File f = fitxer.getSelectedFile();
+            //Agafem el path i el guardem en una string
+            String nomFitxer = f.getAbsolutePath();
+            //Pintem el path dins el textbox anomenat 'path'"
+            if(f.getName().endsWith(".csv")){
+             path.setText(nomFitxer);
+            }else if(f.getName().endsWith(".csv") == false){
+                JOptionPane.showMessageDialog(null,"EL FITXER QUE HAS SELECCIONAT NO"
+             + " ES CORRECTE, SELECCIONA UN FITXER AMB EXTENSIÓ .CSV");
+         }
+    }
     private void generarXML(List<Alumne> llistaAlumnes) {
         try {
             FileOutputStream file = new FileOutputStream("FitxerAlumnes.xml", false);
