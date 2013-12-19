@@ -12,6 +12,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -26,8 +28,10 @@ public class GeneradorLlistats {
      * @param args the command line arguments
      */
     static llistaAlumnes llistaAlumnes = new llistaAlumnes();
+    static SortedMap<Assignatura, Integer> llistaCurtaAssignatures = new TreeMap<>();
+
     public static void main(String[] args) {
-        
+
         try {
             llistaAlumnes.setAlumnes(new ArrayList<Alumne>());//llista on desarem tots els objectes Alumne
             BufferedReader reader = new BufferedReader(new FileReader("matriculats.csv"));//Llegim el fitxer
@@ -40,7 +44,18 @@ public class GeneradorLlistats {
                     Assignatura as = new Assignatura();//creem assignatura
                     as.setNom(dades[x]);//li donem el nom de l'assignatura
                     llistaAssignatures.add(as);//afegeix el nom de cada assignatura a la llista d'assignatures
+
                 }
+              //////Saber quines assignatures hi ha en total sense repetir-les
+                for (Assignatura aux : llistaAssignatures) {//per cada persona de l'array...
+                    if (llistaCurtaAssignatures.containsKey(aux)) {//si ia existeix a l'array
+                        llistaCurtaAssignatures.put(aux, llistaCurtaAssignatures.get(aux) + 1);//sumem +1 al valor de la persona valor(el valor es l'integer del hashmap
+                    } else {//si no existia
+                        llistaCurtaAssignatures.put(aux, 1);//afegim la persona al hashmap amb el valor 1
+                    }
+                }
+              /////
+                
                 Alumne a = new Alumne();//creem l'alumne
                 a.setCodi(dades[1]);//afegim el codi
                 a.setNomComplet(dades[4] + "," + dades[5]);//afegim nom complet
@@ -48,8 +63,9 @@ public class GeneradorLlistats {
                 a.setLlistAssign(llistaAssignatures);//afegim llista assignatures
                 llistaAlumnes.getAlumnes().add(a);//afegim l'alumne amb les seves dades a la llista d'alumnes
             }
-            System.out.println(llistaAlumnes);
-            /////
+            //System.out.println(llistaAlumnes);
+
+          /////Creació de l'Xml
             FileOutputStream file = new FileOutputStream("FitxerAlumnes.xml", false);
 
             JAXBContext jaxbContext = JAXBContext.newInstance(llistaAlumnes.class);
@@ -59,7 +75,7 @@ public class GeneradorLlistats {
 
             jaxbMarshaller.marshal(llistaAlumnes, file);// envia a fitxer
             jaxbMarshaller.marshal(llistaAlumnes, System.out);// envia a consola
-            /////
+          /////
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

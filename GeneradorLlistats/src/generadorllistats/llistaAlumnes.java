@@ -21,13 +21,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class llistaAlumnes
 {
-    
+    @XmlElement(name="llista")
     private List<Alumne> llistaAlumnes = null;
  
     public List<Alumne> getAlumnes() {
         return llistaAlumnes;
     }
- 
+    
     public void setAlumnes(List<Alumne> alumnes) {
         this.llistaAlumnes = alumnes;
     }

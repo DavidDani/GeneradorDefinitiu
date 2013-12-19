@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlValue;
  *
  * @author Dani
  */
-public class Assignatura {
+public class Assignatura implements Comparable<Assignatura>{
 
     private String nom;
 
@@ -26,7 +26,20 @@ public class Assignatura {
 
     @Override
     public String toString() {
-        return nom;
+        return nom+"\n";
     }
+    
+    @Override
+	public int compareTo(Assignatura a) {
+		//int valor = cognoms.compareTo(p.getCognoms());
+		//return valor == 0? nom.compareTo(p.getNom()) : valor;
+		
+		int valor = nom.compareTo(a.getNom());
+		if (valor == 0){
+			return nom.compareTo(a.getNom());
+		}else {
+			return valor;
+		}
+	}
 
 }

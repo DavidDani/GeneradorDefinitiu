@@ -10,16 +10,18 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
 /**
  *
  * @author Dani
  */
-@XmlRootElement(name = "llista")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class Alumne {
 
+@XmlType(propOrder={"nomComplet", "curs"})
+public class Alumne {
+    
     private String codi, nomComplet, curs;
     private List<Assignatura> llistAssign;
 
@@ -27,7 +29,7 @@ public class Alumne {
         return codi;
     }
 
-    
+    @XmlTransient
     public void setCodi(String codi) {
         this.codi = codi;
     }
@@ -36,7 +38,7 @@ public class Alumne {
         return nomComplet;
     }
 
-    
+    @XmlElement
     public void setNomComplet(String nomComplet) {
         this.nomComplet = nomComplet;
     }
@@ -45,7 +47,7 @@ public class Alumne {
         return curs;
     }
 
-    
+    @XmlElement(name="grup")
     public void setCurs(String curs) {
         this.curs = curs;
     }
@@ -54,7 +56,7 @@ public class Alumne {
     public List<Assignatura> getLlistAssign() {
         return llistAssign;
     }
-
+@XmlTransient
     public void setLlistAssign(List<Assignatura> llistAssign) {
         this.llistAssign = llistAssign;
     }
