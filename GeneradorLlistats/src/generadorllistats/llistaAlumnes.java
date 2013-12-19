@@ -11,17 +11,10 @@ package generadorllistats;
  * @author Dani
  */
 import java.util.List;
- 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
- 
-@XmlRootElement(name = "llistes")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class llistaAlumnes
 {
-    @XmlElement(name="llista")
+
     private List<Alumne> llistaAlumnes = null;
  
     public List<Alumne> getAlumnes() {

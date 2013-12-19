@@ -67,21 +67,11 @@ public class GeneradorLlistats {
             //System.out.println(llistaAlumnes);
 
           /////Creació de l'Xml
-            FileOutputStream file = new FileOutputStream("FitxerAlumnes.xml", false);
-
-            JAXBContext jaxbContext = JAXBContext.newInstance(llistaAlumnes.class);
-            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            jaxbMarshaller.marshal(llistaAlumnes, file);// envia a fitxer
-            //jaxbMarshaller.marshal(llistaAlumnes, System.out);// envia a consola
+            
           /////
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JAXBException e) {
             e.printStackTrace();
         }
     }

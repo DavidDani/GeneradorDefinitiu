@@ -73,6 +73,11 @@ public class GUIGenerador extends javax.swing.JFrame{
         jLabel1.setText("Busca el fitxer que contè les dades:");
 
         path.setEditable(false);
+        path.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pathActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         jLabel2.setText("Selecciona les materies de les quals vols generar el llistat: ");
@@ -157,12 +162,17 @@ public class GUIGenerador extends javax.swing.JFrame{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       funcioPath();
+      crearAlumnes(path.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         System.exit(0);
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathActionPerformed
+           
+    }//GEN-LAST:event_pathActionPerformed
 //Funcio que permet buscar un fitxer i escriure en el Text del costat
     private void funcioPath(){
    
@@ -200,23 +210,25 @@ public class GUIGenerador extends javax.swing.JFrame{
         }
     }
     
-    private void crearAlumnes(){
+    private void crearAlumnes(String path){
         try {
             llistaAlumnes.setAlumnes(new ArrayList<Alumne>());//llista on desarem tots els objectes Alumne
-            BufferedReader reader = new BufferedReader(new FileReader("matriculats.csv"));//Llegim el fitxer
+            BufferedReader reader = new BufferedReader(new FileReader(path));//Llegim el fitxer
             String line = "";
-            reader.readLine();//Saltem la línia de títols
-            while ((line = reader.readLine()) != null) {//mentre llegeixis linies del fitxer...
+            String patro = "\" #,\"\"00_NOM\"\",\"\"01_GRUPSCLASSE\"\",\"\"02_MATRICULADES\"\"\"";
+            line = reader.readLine();//Saltem la línia de títols
+            if(line.compareTo(patro) == 0){
+                while ((line = reader.readLine()) != null) {//mentre llegeixis linies del fitxer...
                 String[] dades = line.trim().split(",|\"");//desem els camps de la linia llegida separats per comes o cometes dobles
                 List<Assignatura> llistaAssignatures = new ArrayList<>();//Creem una llista de assignatures
-                for (int x = 15; x < dades.length; x++) {//mentre hi hagi assignatures a la línia d'aquest Alumne
+                 for (int x = 15; x < dades.length; x++) {//mentre hi hagi assignatures a la línia d'aquest Alumne
                     Assignatura as = new Assignatura();//creem assignatura
                     as.setNom(dades[x]);//li donem el nom de l'assignatura
                     llistaAssignatures.add(as);//afegeix el nom de cada assignatura a la llista d'assignatures
 
                 }
               //////Saber quines assignatures hi ha en total sense repetir-les
-                for (Assignatura aux : llistaAssignatures) {//per cada persona de l'array...
+                    for (Assignatura aux : llistaAssignatures) {//per cada persona de l'array...
                     if (llistaCurtaAssignatures.containsKey(aux)) {//si ia existeix a l'array
                         llistaCurtaAssignatures.put(aux, llistaCurtaAssignatures.get(aux) + 1);//sumem +1 al valor de la persona valor(el valor es l'integer del hashmap
                     } else {//si no existia
@@ -232,14 +244,18 @@ public class GUIGenerador extends javax.swing.JFrame{
                 a.setLlistAssign(llistaAssignatures);//afegim llista assignatures
                 llistaAlumnes.getAlumnes().add(a);//afegim l'alumne amb les seves dades a la llista d'alumnes
             }
-            System.out.println(llistaAlumnes);
-
+            
+            jTextPane1.setText(llistaCurtaAssignatures.toString());
+        }else{
+                JOptionPane.showMessageDialog(null,"EL FORMAT DEL FITXER .CSV NO ÉS CORRECTE!!!");
+             }
           
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
     }
 
     /**

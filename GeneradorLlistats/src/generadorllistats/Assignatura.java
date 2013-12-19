@@ -5,8 +5,6 @@
  */
 package generadorllistats;
 
-import javax.xml.bind.annotation.XmlValue;
-
 /**
  *
  * @author Dani
