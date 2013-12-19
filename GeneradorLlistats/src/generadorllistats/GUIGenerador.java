@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -147,21 +148,17 @@ public class GUIGenerador extends javax.swing.JFrame{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//Funcio que permet buscar un fitxer i escriure en el Text del costat
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            funcioPath();
-        } catch (fitxerException ex) {
-            Logger.getLogger(GUIGenerador.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      funcioPath();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         System.exit(0);
 
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void funcioPath()throws fitxerException{
+//Funcio que permet buscar un fitxer i escriure en el Text del costat
+    private void funcioPath(){
    
             //Creem un objecte fitxer del tipus FileChooser
             JFileChooser fitxer = new JFileChooser();
@@ -174,7 +171,8 @@ public class GUIGenerador extends javax.swing.JFrame{
             if(f.getName().endsWith(".csv")){
              path.setText(nomFitxer);
             }else if(f.getName().endsWith(".csv") == false){
-                throw new fitxerException();
+                JOptionPane.showMessageDialog(null,"EL FITXER QUE HAS SELECCIONAT NO"
+             + " ES CORRECTE, SELECCIONA UN FITXER AMB EXTENSIÓ .CSV");
          }
     }
     private void generarXML(List<Alumne> llistaAlumnes) {
