@@ -173,15 +173,14 @@ public class GUIGenerador extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //Boto per agafar el fitxer i crear la llista d'alumnes
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        funcioPath();
-        crearAlumnes(path.getText());
+        funcioPath();//funció per agafar el fitxer
+        crearAlumnes(path.getText());//crea els alumnes a partir del fitxer agafat a la funció anterior
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    //Boto per tancar
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         System.exit(0);
-
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathActionPerformed
@@ -189,15 +188,14 @@ public class GUIGenerador extends javax.swing.JFrame {
     }//GEN-LAST:event_pathActionPerformed
     //Boto per generar el llistat
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (jList1.getSelectedValuesList().isEmpty()) {
+        if (jList1.getSelectedValuesList().isEmpty()) {//si no s'ha seleccionat cap matéria de la llista
             JOptionPane.showMessageDialog(rootPane, "NO HI HA RES SELECCIONAT");
-        } else {
-            generarXML();
+        } else {//si ha seleccionat matèries
+            generarXML();//generem el fitxer XML
             JOptionPane.showMessageDialog(rootPane, "FITXER GENERAT CORRECTAMENT");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-//Funcio que permet buscar un fitxer i escriure en el Text del costat
-
+    //Funcio que permet buscar un fitxer i escriure en el Text del costat
     private void funcioPath() {
 
         //Creem un objecte fitxer del tipus FileChooser
@@ -215,31 +213,31 @@ public class GUIGenerador extends javax.swing.JFrame {
                     + " ES CORRECTE, SELECCIONA UN FITXER AMB EXTENSIÓ .CSV");
         }
     }
-
+    //Funció per generar el fitxer XML
     private void generarXML() {
-        List<Assignatura> materiesSeleccionades = jList1.getSelectedValuesList();
+        List<Assignatura> materiesSeleccionades = jList1.getSelectedValuesList();//llista de matéries seleccionades
         try {        
             DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document doc = (Document) docBuilder.newDocument();
-            Element rootElement = doc.createElement("llistes");
+            Document doc = docBuilder.newDocument();
+            Element rootElement = doc.createElement("llistes");//primera etiqueta del document
             doc.appendChild(rootElement);
-
-            for (Assignatura str : materiesSeleccionades) {
-                Element assignatura = doc.createElement("llista");
-                assignatura.setAttribute("materia", str.getNom());
-                for (int i = 0; i < llistaAlumnes.size(); i++) {
-                    if (llistaAlumnes.get(i).getLlistAssign().contains(str)) {
-                        Element alumne = doc.createElement("alumne");
-                        Element nomCognom = doc.createElement("cognomsNom");
-                        nomCognom.appendChild(doc.createTextNode(llistaAlumnes.get(i).getNomComplet()));
-                        alumne.appendChild(nomCognom);
-                        Element curs = doc.createElement("grup");
-                        curs.appendChild(doc.createTextNode(llistaAlumnes.get(i).getCurs()));
-                        alumne.appendChild(curs);
-                        assignatura.appendChild(alumne);
+            
+            for (Assignatura str : materiesSeleccionades) {//per cada matèria seleccionada
+                Element assignatura = doc.createElement("llista");//creem l'etiqueta llista
+                assignatura.setAttribute("materia", str.getNom());//li posem un atribut amb el nom de la matèria
+                for (int i = 0; i < llistaAlumnes.size(); i++) {//mentre hi hagi alumnes a la llista
+                    if (llistaAlumnes.get(i).getLlistAssign().toString().contains(str.toString())) {//si tenen l'assignatura seleccionada
+                        Element alumne = doc.createElement("alumne");//creem l'etiqueta alumne
+                        Element nomCognom = doc.createElement("cognomsNom");//creem l'etiqueta cognomsNom
+                        nomCognom.appendChild(doc.createTextNode(llistaAlumnes.get(i).getNomComplet()));//li donem el valor de dins l'etiqueta
+                        alumne.appendChild(nomCognom);//el nom i cognoms han d'estar a dins de l'etiqueta alumne
+                        Element curs = doc.createElement("grup");//creem l'etiqueta grup
+                        curs.appendChild(doc.createTextNode(llistaAlumnes.get(i).getCurs()));//li donem el valor de dins l'etiqueta
+                        alumne.appendChild(curs);//el curs ha d'estar a dins de l'etiqueta alumne
+                        assignatura.appendChild(alumne);//alumne esta a dins de l'etiqueta llista
                     }
                 }
-                rootElement.appendChild(assignatura);
+                rootElement.appendChild(assignatura);//l'etiqueta llista esta a dins de llistes
             }
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             DOMSource source = new DOMSource(doc);
@@ -265,7 +263,7 @@ public class GUIGenerador extends javax.swing.JFrame {
                     List<Assignatura> llistaAssignatures = new ArrayList<>();//Creem una llista de assignatures
                     for (int x = 15; x < dades.length; x++) {//mentre hi hagi assignatures a la línia d'aquest Alumne
                         Assignatura as = new Assignatura();//creem assignatura
-                        as.setNom(dades[x]);//li donem el nom de l'assignatura
+                        as.setNom(dades[x].trim());//li donem el nom de l'assignatura
                         llistaAssignatures.add(as);//afegeix el nom de cada assignatura a la llista d'assignatures
 
                     }
@@ -277,7 +275,7 @@ public class GUIGenerador extends javax.swing.JFrame {
                             llistaCurtaAssignatures.put(aux, 1);//afegim la persona al hashmap amb el valor 1
                         }
                     }
-              /////
+                     /////
 
                     Alumne a = new Alumne();//creem l'alumne
                     a.setCodi(dades[1]);//afegim el codi

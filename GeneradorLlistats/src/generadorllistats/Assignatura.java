@@ -9,7 +9,7 @@ package generadorllistats;
  *
  * @author Dani
  */
-public class Assignatura implements Comparable<Assignatura>{
+public class Assignatura implements Comparable<Assignatura> {
 
     private String nom;
 
@@ -17,27 +17,23 @@ public class Assignatura implements Comparable<Assignatura>{
         return nom;
     }
 
-    
     public void setNom(String nom) {
         this.nom = nom;
     }
 
     @Override
     public String toString() {
-        return nom+"\n";
+        return nom + "\n";
     }
-    
+
     @Override
-	public int compareTo(Assignatura a) {
-		//int valor = cognoms.compareTo(p.getCognoms());
-		//return valor == 0? nom.compareTo(p.getNom()) : valor;
-		
-		int valor = nom.compareTo(a.getNom());
-		if (valor == 0){
-			return nom.compareTo(a.getNom());
-		}else {
-			return valor;
-		}
-	}
+    public int compareTo(Assignatura a) {
+        int valor = nom.compareTo(a.getNom());
+        if (valor == 0) {
+            return nom.compareTo(a.getNom());
+        } else {
+            return valor;
+        }
+    }
 
 }
